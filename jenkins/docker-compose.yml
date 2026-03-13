@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  jenkins:
+    build: .
+    container_name: revpay-jenkins
+    user: root
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - maven-cache:/root/.m2    # <--- ADD THIS
+      - npm-cache:/root/.npm     # <--- ADD THIS
+    networks:
+      - revpay_revpay-network
+
+volumes:
+  jenkins_home:
+  maven-cache:                   # <--- ADD THIS
+  npm-cache:                     # <--- ADD THIS
+
+networks:
+  revpay_revpay-network:
+    external: true
